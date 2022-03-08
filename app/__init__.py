@@ -29,6 +29,8 @@ import app.API.social as MySocials
 import app.API.header_section as MyHeaders
 import app.API.project as MyProject
 import app.API.projects_list as MyProjectsList
+import app.API.top as Top
+api.add_resource(Top.Top, "/")
 api.add_resource(MySocials.Social, "/social")
 api.add_resource(MyHeaders.Header, "/header")
 api.add_resource(MyProject.Project, "/projects/<string:projectName>")
@@ -37,4 +39,3 @@ api.add_resource(MyProjectsList.ProjectsList, "/projects")
 
 
 app.register_blueprint(api_bp)
-
