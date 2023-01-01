@@ -22,7 +22,7 @@ load_dotenv(find_dotenv())
 user = os.getenv('MONGO_USER')
 password = os.getenv('MONGO_PASS')
 new_connection = Mongodb.MongoDatabase("websitedb", user, password)
-
+app.config['MONGO_CONNECT'] = False
 
 
 import app.API.social as MySocials
