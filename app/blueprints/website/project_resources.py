@@ -34,7 +34,8 @@ class ProjectsList(Resource):
             "fileName": 1,
             "is_active": 1,
             "tags": 1,
-            "dateUploaded": 1
+            "dateUploaded": 1,
+            "url": 1
         }
         projects_list = list(db["content"].find(query,projection))
         if projects_list:
