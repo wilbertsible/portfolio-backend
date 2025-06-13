@@ -2,7 +2,7 @@
 
 This is the backend API for my website at
 
-[https://www.wilbertsible.com/]
+https://www.wilbertsible.com/
 
 ## Table of Contents
 
@@ -52,7 +52,7 @@ Detailed steps on how to get the development environment set up.
 2.  **Clone the repository:**
     ```bash
     git clone [git@github.com:wilbertsible/portfolio-backend.git]
-    cd your-flask-api
+    cd portfolio-backend
     ```
 
 3.  **Create a virtual environment (recommended):**
@@ -79,8 +79,6 @@ Explain how to configure the API, especially environment variables.
     ```
 
 ## Usage (API Endpoints)
-
-This is a crucial section for an API. Document your endpoints clearly.
 
 ### Base URL
 
@@ -218,7 +216,7 @@ This is a crucial section for an API. Document your endpoints clearly.
         [
             {
             "_id": {
-                "$oid": "68463339be9bbca139c38e95"
+                "$oid": "<Mongo-generated id>"
             },
             "date": {
                 "$date": "2025-06-08T18:04:57.006Z"
