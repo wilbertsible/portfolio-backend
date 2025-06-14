@@ -14,7 +14,7 @@ class ZinnyDataLatest(Resource):
             "humidity": 1,
             "soil_moisture": 1,
             "total_daily_dispensed_water": 1,
-            "current_datetime": 1,
+            "latest_reading_datetime": 1,
         }
         sort = [('_id', -1)]
         zinny_latest = db["zinny_data"].find_one(query,projection, sort=sort)
