@@ -11,7 +11,7 @@ def get_mongo_client():
         g.mongo_client = MongoClient(current_app.config["MONGO_URI"])
     return g.mongo_client
 
-def get_mongo_db(db_name="zinny"): # Set default to "zinny" if that's your primary DB
+def get_mongo_db(db_name="websitedb"): # Set default to "zinny" if that's your primary DB
     """
     Gets a specific MongoDB database instance from the client.
     """
