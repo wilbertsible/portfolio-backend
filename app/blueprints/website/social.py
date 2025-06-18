@@ -1,10 +1,11 @@
 from flask_restful import Resource
 from flask import request, jsonify, current_app
+from app.db_helpers import get_mongo_db
 
 class Social(Resource):
 
     def get(self):
-        db = current_app.mongo_client.websitedb
+        db = get_mongo_db("websitedb")
         query = {}
         projection={
             "_id": 0,          # Exclude MongoDB's default _id field

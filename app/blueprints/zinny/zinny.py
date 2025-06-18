@@ -1,11 +1,12 @@
 from flask_restful import Resource
 from flask import request, jsonify, current_app
+from app.db_helpers import get_mongo_db
 
 
 class ZinnyDataLatest(Resource):
 
     def get(self):
-        db = current_app.mongo_client.zinny
+        db = get_mongo_db("zinny")
         query = {}
         projection={
             "_id": 0,
@@ -28,7 +29,7 @@ class ZinnyDataLatest(Resource):
 class ZinnyDataList(Resource):
 
     def get(self):
-        db = current_app.mongo_client.zinny
+        db = get_mongo_db("zinny")
         query = {}
         projection={
             "_id": 0,          # Exclude MongoDB's default _id field
@@ -40,7 +41,7 @@ class ZinnyDataList(Resource):
             "current_datetime": 1,
         }
         sort = [('_id', -1)]
-        zinny_all = db["zinny_data"].find(query,projection, sort=sort)
+        zinny_all = list(db["zinny_data"].find(query, projection, sort=sort))
         if zinny_all:
             return jsonify(zinny_all)
         else:

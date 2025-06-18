@@ -1,10 +1,11 @@
 from flask_restful import Resource
 from flask import request, jsonify, current_app
+from app.db_helpers import get_mongo_db
 
 class Project(Resource):
 
     def get(self,projectName):
-        db = current_app.mongo_client.websitedb
+        db = get_mongo_db("websitedb")
         query = {'url': projectName}
         projection={
             "_id": 0,          # Exclude MongoDB's default _id field
@@ -25,7 +26,7 @@ class Project(Resource):
 class ProjectsList(Resource):
 
     def get(self):
-        db = current_app.mongo_client.websitedb
+        db = get_mongo_db("websitedb")
         query = {}
         projection = {
             "_id": 0,          # Exclude MongoDB's default _id field
