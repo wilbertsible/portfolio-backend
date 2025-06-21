@@ -38,7 +38,8 @@ class ProjectsList(Resource):
             "dateUploaded": 1,
             "url": 1
         }
-        projects_list = list(db["content"].find(query,projection))
+        sort = [('_id', -1)]
+        projects_list = list(db["content"].find(query,projection, sort=sort))
         if projects_list:
             return jsonify(projects_list)
         else:
