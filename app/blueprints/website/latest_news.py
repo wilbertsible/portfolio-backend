@@ -13,7 +13,7 @@ class LatestNews(Resource):
             "latest_news": 1,
         }
         sort = [('_id', -1)]
-        latest_news_data = list(db["latest_news"].find(query, projection, sort=sort))
+        latest_news_data = db["latest_news"].find_one(query, projection, sort=sort)
         if latest_news_data:
             return jsonify(latest_news_data)
         else:
