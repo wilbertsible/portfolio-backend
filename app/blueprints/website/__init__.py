@@ -1,9 +1,10 @@
-# blueprints/users/__init__.py
 from flask import Blueprint
 from flask_restful import Api
 from app.blueprints.website.project_resources import Project, ProjectsList
 from app.blueprints.website.social import Social
 from app.blueprints.website.latest_news import LatestNews
+from app.blueprints.website.contact_messages import ContactMessages
+
 
 
 # Create the Blueprint
@@ -17,3 +18,4 @@ api.add_resource(Social, "/social")
 api.add_resource(ProjectsList, "/projects")
 api.add_resource(LatestNews, "/latest-news")
 api.add_resource(Project, "/projects/<string:projectName>")
+api.add_resource(ContactMessages, "/contact")

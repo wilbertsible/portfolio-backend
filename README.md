@@ -58,7 +58,7 @@ Detailed steps on how to get the development environment set up.
 3.  **Create a virtual environment (recommended):**
     ```bash
     python3 -m venv venv
-    source venv/bin/activate  # On Windows: `venv\Scripts\activate`
+    source venv/bin/activate  # On Windows: `.\venv\Scripts\Activate.ps1`
     ```
 
 4.  **Install dependencies:**
