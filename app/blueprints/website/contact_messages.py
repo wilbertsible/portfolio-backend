@@ -59,7 +59,6 @@ class ContactMessages(Resource):
                 auth_token = os.environ.get("TWILIO_AUTH_TOKEN")
                 twilio_phone_number = os.environ.get("TWILIO_PHONE_NUMBER")
                 my_phone_number = os.environ.get("MY_PHONE_NUMBER") # The number to send the SMS to
-                print(my_phone_number)
                 if not all([account_sid, auth_token, twilio_phone_number, my_phone_number]):
                     current_app.logger.warning(
                         "Twilio credentials or recipient number not fully configured. SMS not sent."
