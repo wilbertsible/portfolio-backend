@@ -15,7 +15,7 @@ from app.blueprints.zinny import zinny_bp
 
 
 
-app = Flask(__name__)            
+app = Flask(__name__)
 cors = CORS(app)
 
 load_dotenv(find_dotenv())

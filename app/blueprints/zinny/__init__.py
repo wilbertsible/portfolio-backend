@@ -1,7 +1,7 @@
 # blueprints/users/__init__.py
 from flask import Blueprint
 from flask_restful import Api
-from app.blueprints.zinny.zinny import ZinnyDataLatest, ZinnyDataList, ZinnyCalibrationLatest
+from app.blueprints.zinny.zinny import ZinnyDataLatest, ZinnyDataList, ZinnyCalibrationLatest, ZinnyDataAggregate
 
 
 
@@ -15,3 +15,4 @@ api = Api(zinny_bp)
 api.add_resource(ZinnyDataLatest, "/zinny-data/latest")
 api.add_resource(ZinnyDataList, "/zinny-data")
 api.add_resource(ZinnyCalibrationLatest, "/zinny-calibration/latest")
+api.add_resource(ZinnyDataAggregate, "/zinny-data/aggregate/<string:start_date>/<string:end_date>")

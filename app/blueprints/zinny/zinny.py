@@ -15,7 +15,7 @@ class ZinnyDataLatest(Resource):
             "humidity": 1,
             "soil_moisture": 1,
             "total_daily_dispensed_water": 1,
-            "latest_reading_datetime": 1,
+            "timestamp": 1,
         }
         sort = [('_id', -1)]
         zinny_latest = db["zinny_data"].find_one(query,projection, sort=sort)
@@ -38,7 +38,7 @@ class ZinnyDataList(Resource):
             "humidity": 1,
             "soil_moisture": 1,
             "total_daily_dispensed_water": 1,
-            "current_datetime": 1,
+            "timestamp": 1,
         }
         sort = [('_id', -1)]
         zinny_all = list(db["zinny_data"].find(query, projection, sort=sort))
@@ -51,7 +51,7 @@ class ZinnyDataList(Resource):
 class ZinnyCalibrationLatest(Resource):
 
     def get(self):
-        db = current_app.mongo_client.zinny
+        db = get_mongo_db("zinny")
         query = {}
         projection={
             "_id": 0,
@@ -66,3 +66,27 @@ class ZinnyCalibrationLatest(Resource):
         else:
             return jsonify({"error": "Latest Zinny Calibration Data not found"}), 404
 
+
+class ZinnyDataAggregate(Resource):
+    def get(self, start_date, end_date):
+        db = get_mongo_db("zinny")
+        query = {
+            'timestamp':{
+                '$gte':start_date,
+                '$lte':end_date
+            }
+        }
+        projection={
+            "_id": 0,          # Exclude MongoDB's default _id field
+            "sunlight_level": 1,
+            "temperature": 1,
+            "humidity": 1,
+            "soil_moisture": 1,
+            "total_daily_dispensed_water": 1,
+            "timestamp": 1,
+        }
+        zinny_all = list(db["zinny_data"].find(query, projection))
+        if zinny_all:
+            return jsonify(zinny_all)
+        else:
+            return jsonify({"error": "Zinny Data not found"}), 404

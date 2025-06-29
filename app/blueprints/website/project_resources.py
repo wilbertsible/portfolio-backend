@@ -4,9 +4,9 @@ from app.db_helpers import get_mongo_db
 
 class Project(Resource):
 
-    def get(self,projectName):
+    def get(self,project_name):
         db = get_mongo_db("websitedb")
-        query = {'url': projectName}
+        query = {'url': project_name}
         projection={
             "_id": 0,          # Exclude MongoDB's default _id field
             "title": 1,
