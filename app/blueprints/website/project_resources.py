@@ -17,7 +17,6 @@ class Project(Resource):
             "url": 1,
             "tags": 1,
         }
-        print(query)
         project_data = db["content"].find_one(query,projection)
         if project_data:
             return jsonify(project_data)
