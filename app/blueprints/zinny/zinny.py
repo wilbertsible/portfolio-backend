@@ -258,8 +258,4 @@ class ZinnyDataAggregate(Resource):
             return jsonify({"error": "Invalid duration specified"}), 400
         
         zinny_aggregate = list(db["zinny_data"].aggregate(pipeline))
-        print(len(zinny_aggregate))
-        if zinny_aggregate:
-            return jsonify(zinny_aggregate)
-        else:
-            return jsonify({"error": "Zinny Data not found"}), 404
+        return jsonify(zinny_aggregate)
