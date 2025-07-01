@@ -2,6 +2,7 @@ from flask_restful import Resource
 from flask import request, jsonify, current_app
 from app.db_helpers import get_mongo_db
 from datetime import datetime, timedelta
+import pytz
 
 
 class ZinnyDataLatest(Resource):
@@ -69,13 +70,12 @@ class ZinnyCalibrationLatest(Resource):
 class ZinnyDataAggregate(Resource):
     def get(self, duration):
         db = get_mongo_db("zinny")
-        datetime_now = datetime.now()
+        la_timezone = pytz.timezone('America/Los_Angeles')
+        datetime_now = datetime.now().astimezone(la_timezone)
         start_time = None
         pipeline = None
         if duration == 'hour':
             start_time = datetime_now - timedelta(hours=1)
-            print(datetime_now)
-            print(start_time)
             pipeline = [
                 {
                     '$match': {
