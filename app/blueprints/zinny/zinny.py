@@ -74,6 +74,8 @@ class ZinnyDataAggregate(Resource):
         pipeline = None
         if duration == 'hour':
             start_time = datetime_now - timedelta(hours=1)
+            print(datetime_now)
+            print(start_time)
             pipeline = [
                 {
                     '$match': {
