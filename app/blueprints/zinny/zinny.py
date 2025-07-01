@@ -157,7 +157,7 @@ class ZinnyDataAggregate(Resource):
                     '$match': {
                         'timestamp': {
                             '$gte': start_time,
-                            '$lt': datetime_now
+                            '$lte': datetime_now
                         }
                     }
                 },
@@ -208,7 +208,7 @@ class ZinnyDataAggregate(Resource):
                         '$match': {
                             'timestamp': {
                                 '$gte': start_time,
-                                '$lt': datetime_now
+                                '$lte': datetime_now
                             }
                         }
                     },
@@ -255,4 +255,5 @@ class ZinnyDataAggregate(Resource):
             return jsonify({"error": "Invalid duration specified"}), 400
         
         zinny_aggregate = list(db["zinny_data"].aggregate(pipeline))
+        print(zinny_aggregate)
         return jsonify(zinny_aggregate)
