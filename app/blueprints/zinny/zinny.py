@@ -73,6 +73,7 @@ class ZinnyDataAggregate(Resource):
         start_time = None
         pipeline = None
         if duration == 'hour':
+            print("here")
             start_time = datetime_now - timedelta(hours=1)
             pipeline = [
                 {
