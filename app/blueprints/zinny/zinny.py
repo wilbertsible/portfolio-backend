@@ -73,20 +73,19 @@ class ZinnyDataAggregate(Resource):
         start_time = None
         pipeline = None
         if duration == 'hour':
-            print("here")
             start_time = datetime_now - timedelta(hours=1)
             pipeline = [
                 {
-                    '$match':{
-                        "timestamp":{
-                            "$gte":start_time,
-                            "$lte":datetime_now
+                    '$match': {
+                        'timestamp': {
+                            '$gte': start_time,
+                            '$lte': datetime_now
                         }
                     }
                 },
                 {
                     '$project': {
-                        "_id": 0,          # Exclude MongoDB's default _id field
+                        '_id': 0,
                         "sunlight_level": 1,
                         "temperature": 1,
                         "humidity": 1,
@@ -256,5 +255,4 @@ class ZinnyDataAggregate(Resource):
             return jsonify({"error": "Invalid duration specified"}), 400
         
         zinny_aggregate = list(db["zinny_data"].aggregate(pipeline))
-        print(zinny_aggregate)
         return jsonify(zinny_aggregate)
