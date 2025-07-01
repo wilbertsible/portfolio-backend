@@ -74,7 +74,7 @@ class ZinnyDataAggregate(Resource):
         db = get_mongo_db("zinny")
         now_utc = datetime.now()
         start_time = None
-        if duration == 'hourly':
+        if duration == 'hour':
             start_time = now_utc - timedelta(hours=1)
         elif duration == '12_hours':
             start_time = now_utc - timedelta(hours=12)
