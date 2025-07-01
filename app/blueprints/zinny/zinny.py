@@ -1,6 +1,7 @@
 from flask_restful import Resource
 from flask import request, jsonify, current_app
 from app.db_helpers import get_mongo_db
+from datetime import datetime, timedelta
 
 
 class ZinnyDataLatest(Resource):
@@ -52,6 +53,7 @@ class ZinnyCalibrationLatest(Resource):
 
     def get(self):
         db = get_mongo_db("zinny")
+
         query = {}
         projection={
             "_id": 0,
@@ -68,12 +70,25 @@ class ZinnyCalibrationLatest(Resource):
 
 
 class ZinnyDataAggregate(Resource):
-    def get(self, start_date, end_date):
+    def get(self, duration):
         db = get_mongo_db("zinny")
-        query = {
-            'timestamp':{
-                '$gte':start_date,
-                '$lte':end_date
+        now_utc = datetime.now()
+        start_time = None
+        if duration == 'hourly':
+            start_time = now_utc - timedelta(hours=1)
+        elif duration == '12_hours':
+            start_time = now_utc - timedelta(hours=12)
+        elif duration == 'day':
+            start_time = now_utc - timedelta(days=1)
+        elif duration == 'week':
+            start_time = now_utc - timedelta(days=7)
+        else:
+            # Handle unknown duration or provide a default
+            return jsonify({"error": "Invalid duration specified"}), 400
+        query={
+            "timestamp":{
+                "$gte":start_time,
+                "$lte":now_utc
             }
         }
         projection={
@@ -85,7 +100,8 @@ class ZinnyDataAggregate(Resource):
             "total_daily_dispensed_water": 1,
             "timestamp": 1,
         }
-        zinny_all = list(db["zinny_data"].find(query, projection))
+        sort = [('_id', -1)]
+        zinny_all = list(db["zinny_data"].find(query, projection, sort=sort))
         if zinny_all:
             return jsonify(zinny_all)
         else:
