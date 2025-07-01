@@ -43,10 +43,7 @@ class ZinnyDataList(Resource):
         }
         sort = [('_id', -1)]
         zinny_all = list(db["zinny_data"].find(query, projection, sort=sort))
-        if zinny_all:
-            return jsonify(zinny_all)
-        else:
-            return jsonify({"error": "Zinny Data not found"}), 404
+        return jsonify(zinny_all)
 
 
 class ZinnyCalibrationLatest(Resource):
