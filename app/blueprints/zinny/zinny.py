@@ -71,11 +71,13 @@ class ZinnyDataAggregate(Resource):
     def get(self, duration):
         db = get_mongo_db("zinny")
         la_timezone = pytz.timezone('America/Los_Angeles')
-        datetime_now = datetime.now().astimezone(la_timezone)
+        datetime_now = datetime.utcnow()
         start_time = None
         pipeline = None
         if duration == 'hour':
             start_time = datetime_now - timedelta(hours=1)
+            print(datetime_now)
+            print(start_time)
             pipeline = [
                 {
                     '$match': {
@@ -127,9 +129,9 @@ class ZinnyDataAggregate(Resource):
                                 'binSize': 20,
                             }
                         },
-                        'actual_timestamp_in_bin': {'$first': '$timestamp'},
+                        'timestamp': {'$first': '$timestamp'},
                         'sunlight_level': { '$first': "$sunlight_level" },
-                        'humidity_temperature': { '$first': "$humidity" },
+                        'humidity': { '$first': "$humidity" },
                         'temperature':{'$first':'$temperature'},
                         'soil_moisture': { '$first': "$soil_moisture" }
                     }
@@ -177,9 +179,9 @@ class ZinnyDataAggregate(Resource):
                                 'binSize': 1,
                             }
                         },
-                        'actual_timestamp_in_bin': {'$first': '$timestamp'},
+                        'timestamp': {'$first': '$timestamp'},
                         'sunlight_level': { '$first': "$sunlight_level" },
-                        'humidity_temperature': { '$first': "$humidity" },
+                        'humidity': { '$first': "$humidity" },
                         'temperature':{'$first':'$temperature'},
                         'soil_moisture': { '$first': "$soil_moisture" }
                     
@@ -188,7 +190,6 @@ class ZinnyDataAggregate(Resource):
                 {
                     '$project': {
                         '_id': 0,
-                        'actual_timestamp_in_bin': 1,
                         "sunlight_level": 1,
                         "temperature": 1,
                         "humidity": 1,
@@ -229,10 +230,10 @@ class ZinnyDataAggregate(Resource):
                                 }
                             },
                             'documentCount': {'$sum': 1},
-                            'avg_sunlight_level': {'$avg': '$sunlight_level'},
-                            'avg_temperature': {'$avg': '$temperature'},
-                            'avg_humidity': {'$avg': '$humidity'},
-                            'avg_soil_moisture': {'$avg': '$soil_moisture'}
+                            'sunlight_level': {'$avg': '$sunlight_level'},
+                            'temperature': {'$avg': '$temperature'},
+                            'humidity': {'$avg': '$humidity'},
+                            'soil_moisture': {'$avg': '$soil_moisture'}
                         }
                     },
                     {
@@ -240,10 +241,10 @@ class ZinnyDataAggregate(Resource):
                             '_id': 0,
                             'timestamp': '$_id',
                             'documentCount': 1,
-                            'avg_sunlight_level': 1,
-                            'avg_temperature': 1,
-                            'avg_humidity': 1,
-                            'avg_soil_moisture': 1
+                            'sunlight_level': 1,
+                            'temperature': 1,
+                            'humidity': 1,
+                            'soil_moisture': 1
                         }
                     },
                     {
