@@ -150,7 +150,7 @@ class ZinnyDataAggregate(Resource):
                 },
                 {
                     '$sort': {
-                        'actual_timestamp_in_bin': 1
+                        'timestamp': 1
                     }
                 }
             ]
@@ -200,7 +200,7 @@ class ZinnyDataAggregate(Resource):
                 },
                 {
                     '$sort': {
-                        'actual_timestamp_in_bin': 1
+                        'timestamp': 1
                     }
                 }
             ]
